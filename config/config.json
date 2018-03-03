@@ -1,0 +1,8 @@
+{
+  "development": {
+    // here should be a db connnection config
+  },
+  "production": {
+  },
+  "test": {}
+}
