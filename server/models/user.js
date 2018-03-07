@@ -5,20 +5,20 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     name: {
       type: DataTypes.STRING,
-      required: true
+      required: true,
     },
     email: {
       type: DataTypes.STRING,
       required: true,
-      unique: true
+      unique: true,
     },
     salt: {
       type: DataTypes.TEXT,
-      required: true
+      required: true,
     },
     passwordHash: {
       type: DataTypes.TEXT,
-      required: true
+      required: true,
     },
     isAdmin: DataTypes.BOOLEAN,
     password: {
@@ -35,14 +35,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       get: function () {
         return this._plainPassword;
-      }
-    }
+      },
+    },
   }, {});
 
   User.associate = function (models) {
     // associations can be defined here
     User.hasMany(models.Todo, {
-      foreignKey: 'todoId',
+      foreignKey: 'user',
       as: 'todos',
     })
 

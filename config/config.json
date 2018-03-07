@@ -1,6 +1,12 @@
 {
   "development": {
-    // here should be a db connnection config
+    "username": "ujogvric",
+    "password": "NU6zMdQN8lUnzQIpKkwAay_bn40dgbPu",
+    "database": "ujogvric",
+    "host": "baasu.db.elephantsql.com",
+    "port": 5432,
+    "dialect": "postgres",
+    "operatorsAliases": false
   },
   "production": {
   },

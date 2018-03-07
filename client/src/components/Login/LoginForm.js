@@ -22,8 +22,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
   }),
   flexDiv: {
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   formControl: {
     width: '75%',
@@ -57,7 +59,6 @@ class LoginForm extends Component {
 
   signIn() {
     const { onLogginned } = this.props;
-    debugger;
     axios.post('/api/user/login', {
       login: this.state.login,
       password: this.state.password,

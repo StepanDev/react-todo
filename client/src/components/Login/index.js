@@ -1,24 +1,23 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
 } from 'react-router-dom';
 
 import LoginFrom from './LoginForm';
 import RegisterForm from './RegisterForm';
 
 const AuthRouter = (props) => {
-  debugger;
   const { onLogginned } = props;
   return (
     <Router>
       <div>
         <Route exact path="/" render={ () => <LoginFrom onLogginned={ onLogginned }/> }/>
-        <Route path="/register" component={ RegisterForm }/>
+        <Route path="/register" render={
+          (props) => < RegisterForm onLogginned={ onLogginned } { ...props }/> }/>
       </div>
     </Router>
-  )
+  );
 };
 
-export default AuthRouter
+export default AuthRouter;

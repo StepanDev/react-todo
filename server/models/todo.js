@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
     Todo.hasMany(models.TodoItem, {
-      foreignKey: 'todo',
+      foreignKey: 'todoId',
       as: 'todoItems',
     });
   };

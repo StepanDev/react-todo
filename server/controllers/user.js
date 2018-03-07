@@ -9,9 +9,9 @@ const secretKey = config[env].secretKey;
 
 module.exports = {
   login,
-  signUp,
   getUser,
-  updateUser
+  updateUser,
+  logout,
 };
 
 async function login(req, res) {
@@ -20,53 +20,18 @@ async function login(req, res) {
     const payload = {
       id: user.id,
       name: user.name,
-      email: user.email
+      email: user.email,
     };
     const token = jwt.sign(payload, secretKey);
 
     // TODO implement checkbox "Remember me"
     let expiresDate = new Date();
     expiresDate.setDate(expiresDate.getDate() + 7);
-    res.cookie('jwt', token, {expires: expiresDate, httpOnly: true});
-
-    res.send({user: user});
+    res.cookie('jwt', token, { expires: expiresDate, httpOnly: true });
+    res.send(user);
   } catch (e) {
     console.error(e);
-    res.status(400).end()
-  }
-}
-
-async function signUp(req, res) {
-  try {
-    const newUser = {
-      email: req.body.email,
-      name: req.body.name,
-      password: req.body.password
-    };
-
-    const isUnUniqueLogin = await User.count({where: {email: newUser.email}});
-    if (isUnUniqueLogin) {
-      console.error(`Duplicate login`);
-      // TODO status code for duplicate email
-      return res.status(HttpStatus.BAD_REQUEST);
-    }
-
-    const createdUser = await User.create(newUser);
-    const payload = {
-      id: createdUser.id,
-      name: createdUser.name,
-      email: createdUser.email
-    };
-    const token = jwt.sign(payload, jwtsecret);
-    // TODO implement checkbox "Remember me"
-    let expiresDate = new Date();
-    expiresDate.setDate(expiresDate.getDate() + 7);
-    res.cookie('jwt', token, {expires: expiresDate, httpOnly: true});
-
-    res.send(createdUser);
-  } catch (e) {
-    console.error(e);
-    res.status(400).end()
+    res.status(400).end();
   }
 }
 
@@ -79,4 +44,9 @@ async function updateUser(req, res) {
   // const newUser = {
   //
   // }
+}
+
+function logout(req, res) {
+  res.clearCookie('jwt');
+  return res.end();
 }

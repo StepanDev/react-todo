@@ -3,18 +3,18 @@ import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 
-import Login from './components/Login/LoginForm';
 import AuthRouter from './components/Login';
 import CustomAppBar from './components/AppBar/AppBar';
 import CircularProgressWrapper from './components/Progress/CircularProgressWrapper';
 import theme from './config/CreateMuiTheme';
+import MainRouter from './config/routes';
 
 class App extends Component {
   constructor() {
     super();
     this.logginned = this.logginned.bind(this);
+    this.logouted = this.logouted.bind(this);
     this.state = {
-      logged: 'not',
       user: null,
     };
   }
@@ -22,7 +22,12 @@ class App extends Component {
   logginned(user) {
     this.setState({
       user,
-      logged: '',
+    });
+  }
+
+  logouted() {
+    this.setState({
+      user: null,
     });
   }
 
@@ -34,7 +39,6 @@ class App extends Component {
         if (user) {
           this.setState({
             user,
-            logged: '',
             pending: false,
           });
         }
@@ -52,8 +56,9 @@ class App extends Component {
     return (
       <div className="App">
         <MuiThemeProvider theme={ theme }>
+          <CustomAppBar onLogout={ this.logouted } user={ user }/>
           { user
-            ? <CustomAppBar/>
+            ? <MainRouter user={ user }/>
             : <AuthRouter onLogginned={ this.logginned }/>
           }
           { this.state.pending && <CircularProgressWrapper/> }

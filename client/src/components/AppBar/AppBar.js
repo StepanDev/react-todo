@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
+import axios from 'axios';
 
 import {
   AppBar,
@@ -45,32 +46,47 @@ class CustomAppBar extends Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  logout = () => {
+    const { onLogout } = this.props;
+    axios.post('/api/user/logout')
+      .then((res) => {
+        onLogout();
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { anchorEl } = this.state;
     return (
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            className={ classes.menuButton }
-            color="inherit"
-            aria-label="Menu"
-            onClick={ this.handleBar }
-          >
-            <MenuIcon/>
-          </IconButton>
+          { user && <div>
+            <IconButton
+              className={ classes.menuButton }
+              color="inherit"
+              aria-label="Menu"
+              onClick={ this.handleBar }
+            >
+              <MenuIcon/>
+            </IconButton>
+          </div> }
           <Typography variant="title" color="inherit" className={ classes.flex }>
             ToDo App
           </Typography>
+          { user &&
           <div>
             <IconButton
-              aria-owns={ !!anchorEl ? 'menu-appbar' : null }
+              aria-owns={ anchorEl ? 'menu-appbar' : null }
               aria-haspopup="true"
               onClick={ this.handleMenu }
               color="inherit"
             >
               <AccountCircle/>
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={ anchorEl }
@@ -87,8 +103,11 @@ class CustomAppBar extends Component {
             >
               <MenuItem onClick={ this.handleClose }>Profile</MenuItem>
               <MenuItem onClick={ this.handleClose }>My account</MenuItem>
+              <MenuItem onClick={ this.logout }>Logout</MenuItem>
             </Menu>
-          </div>
+
+
+          </div> }
         </Toolbar>
       </AppBar>
     );
