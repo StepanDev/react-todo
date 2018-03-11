@@ -1,5 +1,12 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.link-wrapper {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+
 }

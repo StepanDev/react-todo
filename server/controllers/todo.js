@@ -5,13 +5,14 @@ const HttpStatus = require('http-status-codes');
 
 module.exports = {
   createTodo,
-  getTodo
+  getTodo,
 };
 
 async function createTodo(req, res) {
   try {
     const todo = {
-      title: req.body.title
+      title: req.body.title,
+      user: req.user.id,
     };
     const createdTodo = await Todo.create(todo);
     return res.status(HttpStatus.CREATED).send(createdTodo);
@@ -26,8 +27,8 @@ async function getTodo(req, res) {
     const foundTodos = await Todo.findAll({
       include: [{
         model: TodoItem,
-        as: 'todoItems'
-      }]
+        as: 'todoItems',
+      }],
     });
     return res.send(foundTodos);
   } catch (e) {

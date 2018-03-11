@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import TodoList from '../components/Todo/TodoList';
+import TodoCreate from '../components/Todo/CreateTodo';
 
 const MainRouter = (props) => {
   const { user } = props;
@@ -12,7 +13,7 @@ const MainRouter = (props) => {
     <Router>
       <div>
         <Route exact path="/" render={ () => <TodoList user={ user }/> }/>
-        {/*<Route path="/register" render={ () => < RegisterForm onLogginned={ onLogginned }/> }/>*/}
+        <Route path="/todo/create" render={ () => <TodoCreate user={ user }/> }/>
       </div>
     </Router>
   );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-
 import {
   Button,
   FormControl,
@@ -10,7 +9,6 @@ import {
   InputAdornment,
   IconButton,
 } from 'material-ui';
-
 import { Visibility, VisibilityOff } from 'material-ui-icons';
 import axios from 'axios';
 
@@ -26,6 +24,9 @@ const styles = theme => ({
   },
   formControl: {
     width: '75%',
+  },
+  button: {
+    marginTop: 8,
   },
 });
 
@@ -122,7 +123,12 @@ class LoginForm extends Component {
             />
           </FormControl>
           <br/>
-          <Button variant="raised" className={ classes.button } onClick={ this.signUp }>
+          <Button
+            variant="raised"
+            id="signup-btn"
+            className={ classes.button }
+            onClick={ this.signUp }
+          >
             Sign up
           </Button>
         </Paper>

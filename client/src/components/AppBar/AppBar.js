@@ -11,8 +11,10 @@ import {
   MenuItem,
 
 } from 'material-ui';
+import Link from '../Link';
 import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
+
 
 const styles = theme => ({
   root: {
@@ -24,6 +26,10 @@ const styles = theme => ({
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+  },
+  linkWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 });
 
@@ -62,9 +68,10 @@ class CustomAppBar extends Component {
     const { anchorEl } = this.state;
     return (
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar className={ classes.linkWrapper }>
           { user && <div>
             <IconButton
+              id='profile-icon'
               className={ classes.menuButton }
               color="inherit"
               aria-label="Menu"
@@ -73,9 +80,13 @@ class CustomAppBar extends Component {
               <MenuIcon/>
             </IconButton>
           </div> }
-          <Typography variant="title" color="inherit" className={ classes.flex }>
-            ToDo App
-          </Typography>
+          <div>
+            <Link to='/'>
+              <Typography variant="title" color="inherit" className={ classes.flex }>
+                ToDo App
+              </Typography>
+            </Link>
+          </div>
           { user &&
           <div>
             <IconButton
@@ -83,6 +94,7 @@ class CustomAppBar extends Component {
               aria-haspopup="true"
               onClick={ this.handleMenu }
               color="inherit"
+              id='profile-icon-2'
             >
               <AccountCircle/>
             </IconButton>

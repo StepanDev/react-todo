@@ -8,6 +8,10 @@ import CustomAppBar from './components/AppBar/AppBar';
 import CircularProgressWrapper from './components/Progress/CircularProgressWrapper';
 import theme from './config/CreateMuiTheme';
 import MainRouter from './config/routes';
+import { Router } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory'
+
+const history = createBrowserHistory();
 
 class App extends Component {
   constructor() {
@@ -54,16 +58,20 @@ class App extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="App">
-        <MuiThemeProvider theme={ theme }>
-          <CustomAppBar onLogout={ this.logouted } user={ user }/>
-          { user
-            ? <MainRouter user={ user }/>
-            : <AuthRouter onLogginned={ this.logginned }/>
-          }
-          { this.state.pending && <CircularProgressWrapper/> }
-        </MuiThemeProvider>
-      </div>
+      <Router history={ history }>
+
+        <div className="App">
+
+          <MuiThemeProvider theme={ theme }>
+            <CustomAppBar onLogout={ this.logouted } user={ user }/>
+            { user
+              ? <MainRouter user={ user }/>
+              : <AuthRouter onLogginned={ this.logginned }/>
+            }
+            { this.state.pending && <CircularProgressWrapper/> }
+          </MuiThemeProvider>
+        </div>
+      </Router>
     );
   }
 }

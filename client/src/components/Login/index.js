@@ -12,9 +12,17 @@ const AuthRouter = (props) => {
   return (
     <Router>
       <div>
-        <Route exact path="/" render={ () => <LoginFrom onLogginned={ onLogginned }/> }/>
-        <Route path="/register" render={
-          (props) => < RegisterForm onLogginned={ onLogginned } { ...props }/> }/>
+        <Route
+          exact
+          path="/"
+          render={
+            (props) => <LoginFrom onLogginned={ onLogginned }{ ...props }/>
+          }
+        />
+        <Route
+          path="/register"
+          render={
+            (props) => < RegisterForm onLogginned={ onLogginned } { ...props }/> }/>
       </div>
     </Router>
   );

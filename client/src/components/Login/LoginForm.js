@@ -13,7 +13,7 @@ import {
 
 import { Visibility, VisibilityOff } from 'material-ui-icons';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import Link from '../Link';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -29,6 +29,9 @@ const styles = theme => ({
   },
   formControl: {
     width: '75%',
+  },
+  button: {
+    marginTop: 8,
   },
 });
 
@@ -107,11 +110,20 @@ class LoginForm extends Component {
               }
             />
           </FormControl>
-          <Button variant="raised" className={ classes.button } onClick={ this.signIn }>
-            Login
-          </Button>
           <div>
-            <Link to='/register'>Register</Link>
+            <Button
+              id="login-button"
+              variant="raised"
+              className={ classes.button }
+              onClick={ this.signIn }
+            >
+              Login
+            </Button>
+            <div>
+              <Button variant="raised" className={ classes.button }>
+                <Link to='/register' id="register-link">Register</Link>
+              </Button>
+            </div>
           </div>
         </Paper>
       </div>
