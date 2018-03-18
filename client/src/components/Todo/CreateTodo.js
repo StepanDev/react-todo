@@ -111,7 +111,7 @@ class CreateTodo extends Component {
   };
 
   render() {
-    const { classes, match } = this.props;
+    const { classes } = this.props;
     const { todoItems } = this.state;
 
     return (

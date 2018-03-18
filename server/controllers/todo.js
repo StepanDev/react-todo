@@ -37,6 +37,9 @@ async function createTodo(req, res) {
 async function getTodo(req, res) {
   try {
     const foundTodos = await Todo.findAll({
+      where: {
+        user: req.user.id,
+      },
       include: [
         {
           model: TodoItem,

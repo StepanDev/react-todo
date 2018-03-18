@@ -76,7 +76,7 @@ class Todo extends Component {
           <Paper className={ classes.paperBlock } elevation={ 4 } style={ { minWidth: 350 } }>
             <h1>{ todo.title }</h1>
             <div className={ classes.editBtn }>
-              <Link to={ `todo/${todo.id}` }>
+              <Link to={ `todo/${todo.id}/edit` }>
                 <IconButton className={ classes.button } aria-label="Edit"
                             onClick={ this.handleEdit }>
                   <Edit/>

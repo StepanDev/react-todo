@@ -60,20 +60,27 @@ const todoItem = {
   completed: false,
 };
 
-class CreateTodo extends Component {
+class EditTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       pending: false,
-      todoItems: [todoItem],
+      todo: [todoItem],
     };
   }
 
   componentDidMount() {
-    console.log(window.location);
-    console.log(window.location.split('/'));
-    console.log(window.location.split('/').pop());
-  }
+    const { match } = this.props;
+    axios.get('/api/todo', {
+      todoId: match.params.id,
+    })
+      .then(res => {
+        const todo = res.data;
+      })
+      .catch(e => {
+        console.warn(e);
+      });
+  };
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -91,7 +98,7 @@ class CreateTodo extends Component {
     this.setState({ todoItems });
   };
 
-  addTodoItem = () => {
+  updateTodo = () => {
     const { todoItems } = cloneDeep(this.state);
     todoItems.push(todoItem);
     this.setState({ todoItems });
@@ -182,7 +189,7 @@ class CreateTodo extends Component {
                 className={ classes.button }
                 variant="raised"
                 size="small"
-                onClick={ this.saveTodo }
+                onClick={ this.updateTodo }
               >
                 Save
               </Button>
@@ -198,4 +205,4 @@ class CreateTodo extends Component {
   }
 }
 
-export default withStyles(styles)(CreateTodo);
+export default withStyles(styles)(EditTodo);

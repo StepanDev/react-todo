@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import TodoList from '../components/Todo/TodoList';
 import TodoCreate from '../components/Todo/CreateTodo';
+import EditTodo from '../components/Todo/EditTodo';
 import Profile from '../components/Account/Account';
 
 const MainRouter = (props) => {
@@ -11,7 +12,7 @@ const MainRouter = (props) => {
     <div>
       <Route exact path="/" render={ (props) => <TodoList user={ user } { ...props }/> }/>
       <Route path="/todo/create" render={ (props) => <TodoCreate user={ user } { ...props }/> }/>
-      <Route path="/todo/:id/edit" render={ (props) => <TodoCreate user={ user } { ...props }/> }/>
+      <Route path="/todo/:id/edit" render={ (props) => <EditTodo user={ user } { ...props }/> }/>
       <Route path="/profile" render={ (props) => <Profile user={ user } { ...props }/> }/>
     </div>
   );
