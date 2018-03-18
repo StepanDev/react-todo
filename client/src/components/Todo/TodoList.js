@@ -67,6 +67,7 @@ class TodoList extends Component {
         { this.state.pending && <CircularProgressWrapper/> }
         <Link to='/todo/create'>
           <Button
+            id='add-todo-item-link'
             variant="fab"
             color="primary"
             aria-label="add"

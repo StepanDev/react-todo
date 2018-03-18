@@ -149,7 +149,7 @@ class CreateTodo extends Component {
                   <FormControl className={ classes.formControl }>
                     <InputLabel htmlFor="login">Title</InputLabel>
                     <Input
-                      id="adornment-todo-title"
+                      id={ 'adornment-todo-item-title' + index }
                       type='text'
                       value={ value.content }
                       onChange={ this.handleItemChange(index) }
@@ -165,6 +165,7 @@ class CreateTodo extends Component {
                 </div>,
               ) }
               <Button
+                id='add-todo-item-btn'
                 variant="fab"
                 color="primary"
                 aria-label="add"

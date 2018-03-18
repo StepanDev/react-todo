@@ -12,7 +12,6 @@ import {
 
 } from 'material-ui';
 import Link from '../Link';
-import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 
 const styles = () => ({

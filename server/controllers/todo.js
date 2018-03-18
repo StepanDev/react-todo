@@ -7,6 +7,7 @@ module.exports = {
   createTodo,
   getTodo,
   destroy,
+  update,
 };
 
 async function createTodo(req, res) {
@@ -64,4 +65,8 @@ async function destroy(req, res) {
     console.error(e);
     return res.status(HttpStatus.BAD_REQUEST).end();
   }
+}
+
+async function update(req, res) {
+
 }
