@@ -1,21 +1,19 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import TodoList from '../components/Todo/TodoList';
 import TodoCreate from '../components/Todo/CreateTodo';
+import Profile from '../components/Account/Account';
 
 const MainRouter = (props) => {
   const { user } = props;
   return (
-    <Router>
-      <div>
-        <Route exact path="/" render={ () => <TodoList user={ user }/> }/>
-        <Route path="/todo/create" render={ () => <TodoCreate user={ user }/> }/>
-      </div>
-    </Router>
+    <div>
+      <Route exact path="/" render={ (props) => <TodoList user={ user } { ...props }/> }/>
+      <Route path="/todo/create" render={ (props) => <TodoCreate user={ user } { ...props }/> }/>
+      <Route path="/todo/:id/edit" render={ (props) => <TodoCreate user={ user } { ...props }/> }/>
+      <Route path="/profile" render={ (props) => <Profile user={ user } { ...props }/> }/>
+    </div>
   );
 };
 

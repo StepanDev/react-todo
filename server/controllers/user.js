@@ -19,12 +19,9 @@ async function login(req, res) {
     const user = req.user;
     const payload = {
       id: user.id,
-      name: user.name,
-      email: user.email,
     };
     const token = jwt.sign(payload, secretKey);
 
-    // TODO implement checkbox "Remember me"
     let expiresDate = new Date();
     expiresDate.setDate(expiresDate.getDate() + 7);
     res.cookie('jwt', token, { expires: expiresDate, httpOnly: true });
@@ -36,14 +33,26 @@ async function login(req, res) {
 }
 
 async function getUser(req, res) {
-  // const user = await User.findOne({where: req.user})
   res.send(req.user);
 }
 
 async function updateUser(req, res) {
-  // const newUser = {
-  //
-  // }
+  try {
+    const user = req.user;
+    const newUser = {
+      name: req.body.name,
+      email: req.body.email,
+    };
+
+    const updated = await user.update(newUser);
+
+    res.send(updated);
+
+  } catch (e) {
+    console.error(e);
+    res.status(HttpStatus.BAD_REQUEST)
+      .end();
+  }
 }
 
 function logout(req, res) {

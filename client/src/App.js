@@ -9,7 +9,7 @@ import CircularProgressWrapper from './components/Progress/CircularProgressWrapp
 import theme from './config/CreateMuiTheme';
 import MainRouter from './config/routes';
 import { Router } from 'react-router';
-import createBrowserHistory from 'history/createBrowserHistory'
+import createBrowserHistory from 'history/createBrowserHistory';
 
 const history = createBrowserHistory();
 
@@ -27,12 +27,14 @@ class App extends Component {
     this.setState({
       user,
     });
+
   }
 
   logouted() {
     this.setState({
       user: null,
     });
+    history.push('/');
   }
 
   componentDidMount() {
@@ -61,9 +63,8 @@ class App extends Component {
       <Router history={ history }>
 
         <div className="App">
-
           <MuiThemeProvider theme={ theme }>
-            <CustomAppBar onLogout={ this.logouted } user={ user }/>
+            <CustomAppBar onLogout={ this.logouted } user={ user } history={ history }/>
             { user
               ? <MainRouter user={ user }/>
               : <AuthRouter onLogginned={ this.logginned }/>

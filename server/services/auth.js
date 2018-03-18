@@ -11,8 +11,9 @@ const secretKey = config[env].secretKey;
 const cookieExtractor = function (req) {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies['jwt'];
+    token = req.cookies.jwt;
   }
+
   return token;
 };
 
@@ -35,6 +36,7 @@ passport.use(new LocalStrategy(
             message: 'Нет такого пользователя или пароль неверен.',
           });
         }
+
         return done(null, user);
       })
       .catch(function (err) {
@@ -55,9 +57,8 @@ passport.deserializeUser(function (id, done) {
   });
 });
 
-
-passport.use('jwt', new JwtStrategy(jwtOptions, function (jwt_payload, done) {
-  User.findById(jwt_payload.id)
+passport.use('jwt', new JwtStrategy(jwtOptions, function (jwtPayload, done) {
+  User.findById(jwtPayload.id)
     .then(function (user) {
       user ? done(null, user) : done(null, false);
     })

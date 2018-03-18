@@ -15,8 +15,7 @@ import Link from '../Link';
 import MenuIcon from 'material-ui-icons/Menu';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 
-
-const styles = theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
   },
@@ -55,31 +54,38 @@ class CustomAppBar extends Component {
   logout = () => {
     const { onLogout } = this.props;
     axios.post('/api/user/logout')
-      .then((res) => {
+      .then(() => {
         onLogout();
+        this.handleClose();
       })
       .catch(e => {
         console.error(e);
       });
   };
 
+  navigateTo = link => () => {
+    const { history, } = this.props;
+    this.handleClose();
+    history.push(link);
+  };
+
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, } = this.props;
     const { anchorEl } = this.state;
     return (
       <AppBar position="static">
         <Toolbar className={ classes.linkWrapper }>
-          { user && <div>
-            <IconButton
-              id='profile-icon'
-              className={ classes.menuButton }
-              color="inherit"
-              aria-label="Menu"
-              onClick={ this.handleBar }
-            >
-              <MenuIcon/>
-            </IconButton>
-          </div> }
+          { /*{ user && <div>*/ }
+          { /*<IconButton*/ }
+          { /*id='profile-icon'*/ }
+          { /*className={ classes.menuButton }*/ }
+          { /*color="inherit"*/ }
+          { /*aria-label="Menu"*/ }
+          { /*onClick={ this.handleBar }*/ }
+          { /*>*/ }
+          { /*<MenuIcon/>*/ }
+          { /*</IconButton>*/ }
+          { /*</div> }*/ }
           <div>
             <Link to='/'>
               <Typography variant="title" color="inherit" className={ classes.flex }>
@@ -98,7 +104,6 @@ class CustomAppBar extends Component {
             >
               <AccountCircle/>
             </IconButton>
-
             <Menu
               id="menu-appbar"
               anchorEl={ anchorEl }
@@ -113,12 +118,10 @@ class CustomAppBar extends Component {
               open={ !!anchorEl }
               onClose={ this.handleClose }
             >
-              <MenuItem onClick={ this.handleClose }>Profile</MenuItem>
-              <MenuItem onClick={ this.handleClose }>My account</MenuItem>
+              <MenuItem onClick={ this.navigateTo('/profile') }> Profile </MenuItem>
+              <MenuItem onClick={ this.navigateTo('/') }>Todo List</MenuItem>
               <MenuItem onClick={ this.logout }>Logout</MenuItem>
             </Menu>
-
-
           </div> }
         </Toolbar>
       </AppBar>

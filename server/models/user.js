@@ -48,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
 
   };
   User.prototype.checkPassword = function (password) {
-    console.log('check pass', password);
     if (!password) {
       console.error(new Error(`Empty password`));
       return false;

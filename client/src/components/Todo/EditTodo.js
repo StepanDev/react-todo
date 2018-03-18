@@ -69,9 +69,11 @@ class CreateTodo extends Component {
     };
   }
 
-  // componentDidMount() {
-  //
-  // }
+  componentDidMount() {
+    console.log(window.location);
+    console.log(window.location.split('/'));
+    console.log(window.location.split('/').pop());
+  }
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -111,10 +113,10 @@ class CreateTodo extends Component {
   };
 
   render() {
-    const { classes, match } = this.props;
+    const { classes } = this.props;
     const { todoItems } = this.state;
-
     return (
+
       <div>
         <div className={ classes.flexDiv }>
           <Paper className={ classes.root } elevation={ 4 }

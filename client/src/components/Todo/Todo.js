@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
-import { Done } from 'material-ui-icons';
+import { withStyles, IconButton } from 'material-ui';
+import { Delete, Edit, Done } from 'material-ui-icons';
+import axios from 'axios';
 
+import Link from '../Link';
 
 import {
   Paper,
@@ -26,6 +28,19 @@ const styles = theme => ({
   itemsWrapper: {
     display: 'flex',
   },
+  editBtn: {
+    right: 0,
+    position: 'absolute',
+    top: '0',
+  },
+  deleteBtn: {
+    bottom: 0,
+    position: 'absolute',
+    right: '0',
+  },
+  paperBlock: {
+    position: 'relative',
+  },
 });
 
 class Todo extends Component {
@@ -34,14 +49,46 @@ class Todo extends Component {
     this.state = { todo: props.todo };
   };
 
+  deleteTodo = () => {
+    const { getTodos } = this.props;
+    const { todo } = this.state;
+    axios.delete('/api/todo',
+      {
+        params: {
+          todoId: todo.id,
+        },
+      })
+      .then((r) => {
+        console.log(r);
+        getTodos();
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+
   render() {
     const { todo } = this.state;
     const { classes } = this.props;
     return (
       <div>
         <div className={ classes.flexDiv }>
-          <Paper elevation={ 4 } style={ { minWidth: 350 } }>
+          <Paper className={ classes.paperBlock } elevation={ 4 } style={ { minWidth: 350 } }>
             <h1>{ todo.title }</h1>
+            <div className={ classes.editBtn }>
+              <Link to={ `todo/${todo.id}` }>
+                <IconButton className={ classes.button } aria-label="Edit"
+                            onClick={ this.handleEdit }>
+                  <Edit/>
+                </IconButton>
+              </Link>
+            </div>
+            <div className={ classes.deleteBtn }>
+              <IconButton className={ classes.button } aria-label="Delete"
+                          onClick={ this.deleteTodo }>
+                <Delete/>
+              </IconButton>
+            </div>
             <div className={ classes }>
               <ul>
                 { todo.todoItems.map((value) =>

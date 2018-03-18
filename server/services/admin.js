@@ -5,10 +5,10 @@ async function createAdmin() {
     const defaults = {
       email: 'stepan.shvets1996@gmail.com',
       name: 'Stepan',
-      password: 'password',
-      isAdmin: true
+      password: 'stepan.shvets1996@gmail.com',
+      isAdmin: true,
     };
-    await User.findOrCreate({where: {email: 'stepan.shvets1996@gmail.com'}, defaults});
+    await User.findOrCreate({ where: { email: 'stepan.shvets1996@gmail.com' }, defaults });
   } catch (e) {
     console.error(e);
     process.exit(0);
