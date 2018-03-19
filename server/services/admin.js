@@ -5,7 +5,7 @@ async function createAdmin() {
     const defaults = {
       email: 'stepan.shvets1996@gmail.com',
       name: 'Stepan',
-      password: 'stepan.shvets1996@gmail.com',
+      password: '123456',
       isAdmin: true,
     };
     await User.findOrCreate({ where: { email: 'stepan.shvets1996@gmail.com' }, defaults });
@@ -13,7 +13,6 @@ async function createAdmin() {
     console.error(e);
     process.exit(0);
   }
-
 }
 
 setTimeout(createAdmin, 1000);

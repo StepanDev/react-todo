@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import {
   Button,
   FormControl,
+  FormHelperText,
   Paper,
   InputLabel,
   Input,
@@ -42,6 +43,9 @@ class LoginForm extends Component {
       showPassword: false,
       login: '',
       password: '',
+      emailError: false,
+      pwdError: false,
+      apiError: false,
     };
     this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this);
     this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
@@ -58,6 +62,16 @@ class LoginForm extends Component {
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
+  };
+
+  isValidEmail = () => {
+    const isValid = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i.test(this.state.login);
+    this.setState({ emailError: !isValid });
+  };
+
+  isValidPassword = () => {
+    const isValid = /.{6,}/.test(this.state.password);
+    this.setState({ pwdError: !isValid });
   };
 
   signIn() {
@@ -82,14 +96,17 @@ class LoginForm extends Component {
     return (
       <div className={ classes.flexDiv }>
         <Paper className={ classes.root } elevation={ 4 } style={ { maxWidth: 350 } }>
-          <FormControl className={ classes.formControl }>
+          <FormControl className={ classes.formControl } error={ this.state.emailError }>
             <InputLabel htmlFor="login">Login</InputLabel>
             <Input
               id="adornment-login"
               type='text'
               value={ this.state.login }
               onChange={ this.handleChange('login') }
+              onBlur={ this.isValidEmail }
             />
+            { this.state.emailError &&
+            <FormHelperText id="name-error-text">Invalid login</FormHelperText> }
           </FormControl>
           <FormControl className={ classes.formControl }>
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -98,6 +115,7 @@ class LoginForm extends Component {
               type={ this.state.showPassword ? 'text' : 'password' }
               value={ this.state.password }
               onChange={ this.handleChange('password') }
+              onBlur={ this.isValidPassword }
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -109,6 +127,8 @@ class LoginForm extends Component {
                 </InputAdornment>
               }
             />
+            { this.state.pwdError &&
+            <FormHelperText id="name-error-text">Invalid password</FormHelperText> }
           </FormControl>
           <div>
             <Button
@@ -116,11 +136,15 @@ class LoginForm extends Component {
               variant="raised"
               className={ classes.button }
               onClick={ this.signIn }
+              disabled={ this.state.pwdError || this.state.emailError }
             >
               Login
             </Button>
             <div>
-              <Button variant="raised" className={ classes.button }>
+              <Button
+                variant="raised"
+                className={ classes.button }
+              >
                 <Link to='/register' id="register-link">Register</Link>
               </Button>
             </div>

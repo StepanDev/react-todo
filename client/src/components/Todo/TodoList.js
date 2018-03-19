@@ -11,6 +11,9 @@ import CircularProgressWrapper from '../Progress/CircularProgressWrapper';
 import Todo from './Todo';
 
 const styles = theme => ({
+  wrapper: {
+    marginTop: 16,
+  },
   icon: {
     margin: theme.spacing.unit * 2,
   },
@@ -60,11 +63,13 @@ class TodoList extends Component {
     const { todos } = this.state;
     const { classes } = this.props;
     return (
-      <div>
+      <div className={ classes.wrapper }>
+        <div>
+          { this.state.pending && <CircularProgressWrapper/> }
+        </div>
         { todos.map((value) =>
           <Todo todo={ value } key={ value.id } getTodos={ this.getTodos }/>,
         ) }
-        { this.state.pending && <CircularProgressWrapper/> }
         <Link to='/todo/create'>
           <Button
             id='add-todo-item-link'

@@ -3,6 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import {
   Button,
   FormControl,
+  FormHelperText,
   Paper,
   InputLabel,
   Input,
@@ -62,6 +63,16 @@ class LoginForm extends Component {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
+  isValidEmail = () => {
+    const isValid = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i.test(this.state.login);
+    this.setState({ emailError: !isValid });
+  };
+
+  isValidPassword = () => {
+    const isValid = /.{6,}/.test(this.state.password);
+    this.setState({ pwdError: !isValid });
+  };
+
   signUp = () => {
     const { onLogginned, history } = this.props;
     const user = {
@@ -92,7 +103,11 @@ class LoginForm extends Component {
               type='text'
               value={ this.state.login }
               onChange={ this.handleChange('login') }
+
+              onBlur={ this.isValidEmail }
             />
+            { this.state.emailError &&
+            <FormHelperText id="name-error-text">Invalid login</FormHelperText> }
           </FormControl>
           <FormControl className={ classes.formControl }>
             <InputLabel htmlFor="login">Name</InputLabel>
@@ -110,6 +125,7 @@ class LoginForm extends Component {
               type={ this.state.showPassword ? 'text' : 'password' }
               value={ this.state.password }
               onChange={ this.handleChange('password') }
+              onBlur={ this.isValidPassword }
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -121,6 +137,8 @@ class LoginForm extends Component {
                 </InputAdornment>
               }
             />
+            { this.state.pwdError &&
+            <FormHelperText id="name-error-text">Invalid password</FormHelperText> }
           </FormControl>
           <br/>
           <Button
@@ -128,6 +146,7 @@ class LoginForm extends Component {
             id="signup-btn"
             className={ classes.button }
             onClick={ this.signUp }
+            disabled={ this.state.pwdError || this.state.emailError }
           >
             Sign up
           </Button>
