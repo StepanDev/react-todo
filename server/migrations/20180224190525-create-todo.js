@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      deadline: {
+        type: Sequelize.DATE,
+      },
       title: {
         type: Sequelize.STRING,
         allowNull: false,

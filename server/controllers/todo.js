@@ -6,8 +6,8 @@ const HttpStatus = require('http-status-codes');
 module.exports = {
   createTodo,
   getTodo,
-  destroy,
-  update,
+  destroyTodo,
+  updateTodo,
 };
 
 async function createTodo(req, res) {
@@ -55,7 +55,7 @@ async function getTodo(req, res) {
   }
 }
 
-async function destroy(req, res) {
+async function destroyTodo(req, res) {
   try {
     const id = req.query.todoId;
     const todo = await Todo.findById(id);
@@ -67,6 +67,42 @@ async function destroy(req, res) {
   }
 }
 
-async function update(req, res) {
+async function updateTodo(req, res) {
+  try {
+    const todo = await Todo.findOne({
+      where: {
+        id: req.body.id,
+      },
+      include: [
+        {
+          model: TodoItem,
+          as: 'todoItems',
+        },
+      ],
+    });
 
+    if (!todo) {
+      console.error(new Error(`No such todo item ${JSON.stringify(req.body)} 
+      in user ${JSON.stringify(req.user)}`));
+      return res.status(HttpStatus.BAD_REQUEST)
+        .end();
+    }
+
+    const r = await todo.update({
+      title: req.body.title,
+      deadline: req.body.deadline,
+    });
+
+    const todoItems = req.body.todoItems;
+
+    for (let i = 0; i < todoItems.length; i++) {
+
+    }
+
+    res.send({});
+  } catch (e) {
+    console.error(e);
+    return res.status(HttpStatus.BAD_REQUEST)
+      .end();
+  }
 }

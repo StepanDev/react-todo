@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    deadline: {
+      type: DataTypes.DATE,
+    },
   });
 
   Todo.associate = (models) => {

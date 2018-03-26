@@ -96,7 +96,7 @@ class LoginForm extends Component {
     return (
       <div className={ classes.flexDiv }>
         <Paper className={ classes.root } elevation={ 4 } style={ { minWidth: 320 } }>
-          <FormControl className={ classes.formControl }>
+          <FormControl className={ classes.formControl } error={ this.state.emailError }>
             <InputLabel htmlFor="login">Login</InputLabel>
             <Input
               id="adornment-login"
@@ -118,7 +118,7 @@ class LoginForm extends Component {
               onChange={ this.handleChange('name') }
             />
           </FormControl>
-          <FormControl className={ classes.formControl }>
+          <FormControl className={ classes.formControl } error={ this.state.pwdError }>
             <InputLabel htmlFor="login">Password</InputLabel>
             <Input
               id="adornment-password"

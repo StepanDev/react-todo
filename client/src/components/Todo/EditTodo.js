@@ -8,6 +8,7 @@ import {
   InputLabel,
   Input,
   TextField,
+  Checkbox,
 } from 'material-ui';
 
 import { withStyles } from 'material-ui/styles';
@@ -55,20 +56,49 @@ const styles = theme => ({
   },
 });
 
-const todoItems = {
+const todoItem = {
   content: '',
   completed: false,
+};
+
+const TodoItems = function (props) {
+  const { classes, value, toggleItemCheck, handleItemChange, removeItem, index } = props;
+  return (
+    <div>
+      <Checkbox
+        checked={ value.completed }
+        onChange={ toggleItemCheck }
+        value={ index + '.completed' }
+        color="primary"
+      />
+      <FormControl className={ classes.formControl }>
+        <InputLabel htmlFor="login">Title</InputLabel>
+        <Input
+          id="adornment-todo-title"
+          type='text'
+          value={ value.content }
+          onChange={ handleItemChange }
+        />
+      </FormControl>
+      <IconButton
+        className={ classes.button }
+        aria-label="Delete"
+        onClick={ removeItem }
+      >
+        <DeleteIcon/>
+      </IconButton>
+    </div>
+  );
 };
 
 class EditTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: null,
       pending: true,
-      todo: {
-        title: '',
-        todoItems: [todoItems],
-      },
+      title: '',
+      todoItems: [todoItem],
     };
   }
 
@@ -81,9 +111,17 @@ class EditTodo extends Component {
         // const todo = res.data;
 
         const todo = res.data && res.data.length ? res.data[0] : null;
+        let newState = {
+          pending: false,
+        };
+
         if (todo) {
-          this.setState({ todo, pending: false });
+          newState.id = todo.id;
+          newState.title = todo.title;
+          newState.todoItems = todo.todoItems;
         }
+
+        this.setState(newState);
       })
       .catch(e => {
         console.warn(e);
@@ -94,28 +132,35 @@ class EditTodo extends Component {
     this.setState({ [prop]: event.target.value });
   };
 
+  toggleItemCheck = index => event => {
+    const { todoItems } = cloneDeep(this.state);
+    todoItems[index].completed = event.target.checked;
+    this.setState({ todoItems });
+  };
+
   handleItemChange = index => e => {
-    const { todo } = cloneDeep(this.state);
-    todo.todoItems[index].content = e.target.value;
-    this.setState({ todo });
+    const { todoItems } = cloneDeep(this.state);
+    todoItems[index].content = e.target.value;
+    this.setState({ todoItems });
   };
 
   removeItem = index => () => {
-    const { todo } = cloneDeep(this.state);
-    todo.todoItems.splice(index, 1);
+    const { todoItems } = cloneDeep(this.state);
+    todoItems.splice(index, 1);
     this.setState({ todoItems });
   };
 
   addTodoItem = () => {
-    const { todo } = cloneDeep(this.state);
-    todo.todoItems.push(todoItems);
-    this.setState({ todo });
+    const { todoItems } = cloneDeep(this.state);
+    todoItems.push(todoItem);
+    this.setState({ todoItems });
   };
 
   saveTodo = () => {
     const { history } = this.props;
     const newTodo = cloneDeep(this.state);
     this.setState({ pending: true });
+    console.log(newTodo);
     axios.put('/api/todo', newTodo)
       .then(() => {
         this.setState({ pending: false });
@@ -129,9 +174,7 @@ class EditTodo extends Component {
 
   render() {
     const { classes } = this.props;
-    const { todo } = this.state;
-    console.log(this.state);
-    console.log(todo);
+    const { title, todoItems } = this.state;
     return (
       <div>
         <div className={ classes.flexDiv }>
@@ -142,7 +185,7 @@ class EditTodo extends Component {
               <Input
                 id="adornment-todo-title"
                 type='text'
-                value={ todo.title }
+                value={ title }
                 onChange={ this.handleChange('title') }
               />
             </FormControl>
@@ -151,7 +194,6 @@ class EditTodo extends Component {
                 id="date"
                 label="Deadline"
                 type="date"
-                defaultValue={ new Date() }
                 className={ classes.textField }
                 InputLabelProps={ {
                   shrink: true,
@@ -162,25 +204,15 @@ class EditTodo extends Component {
               <h3>
                 Add ToDo items
               </h3>
-              { todo.todoItems.map((value, index) =>
-                <div key={ index }>
-                  <FormControl className={ classes.formControl }>
-                    <InputLabel htmlFor="login">Title</InputLabel>
-                    <Input
-                      id="adornment-todo-title"
-                      type='text'
-                      value={ value.content }
-                      onChange={ this.handleItemChange(index) }
-                    />
-                  </FormControl>
-                  <IconButton
-                    className={ classes.button }
-                    aria-label="Delete"
-                    onClick={ this.removeItem(index) }
-                  >
-                    <DeleteIcon/>
-                  </IconButton>
-                </div>,
+              { todoItems.map((value, index) =>
+                <TodoItems
+                  key={ index }
+                  value={ value }
+                  index={ index }
+                  classes={ classes }
+                  handleItemChange={ this.handleItemChange(index) }
+                  toggleItemCheck={ this.toggleItemCheck(index) }
+                  removeItem={ this.removeItem(index) }/>,
               ) }
               <Button
                 variant="fab"

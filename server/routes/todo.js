@@ -8,7 +8,8 @@ const TodoItem = require('./todo-item');
 Router.route('/')
   .get(passport.authenticate('jwt'), Todo.getTodo)
   .post(passport.authenticate('jwt'), Todo.createTodo)
-  .delete(passport.authenticate('jwt'), Todo.destroy);
+  .delete(passport.authenticate('jwt'), Todo.destroyTodo)
+  .put(passport.authenticate('jwt'), Todo.updateTodo);
 
 Router.all('/:todoId/todo-item', passport.authenticate('jwt'), TodoItem);
 

@@ -64,6 +64,7 @@ class CreateTodo extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
       pending: false,
       todoItems: [todoItem],
     };
@@ -133,7 +134,6 @@ class CreateTodo extends Component {
                 id="date"
                 label="Deadline"
                 type="date"
-                defaultValue={ new Date() }
                 className={ classes.textField }
                 InputLabelProps={ {
                   shrink: true,

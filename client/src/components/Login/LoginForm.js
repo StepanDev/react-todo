@@ -86,7 +86,7 @@ class LoginForm extends Component {
       })
       .catch(e => {
         console.warn(e);
-        this.setState({ error: true });
+        this.setState({ apiError: true });
       });
 
   };
@@ -108,7 +108,7 @@ class LoginForm extends Component {
             { this.state.emailError &&
             <FormHelperText id="name-error-text">Invalid login</FormHelperText> }
           </FormControl>
-          <FormControl className={ classes.formControl }>
+          <FormControl className={ classes.formControl } error={ this.state.pwdError }>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="adornment-password"
@@ -129,6 +129,8 @@ class LoginForm extends Component {
             />
             { this.state.pwdError &&
             <FormHelperText id="name-error-text">Invalid password</FormHelperText> }
+            { this.state.apiError &&
+            <FormHelperText id="name-error-text">Wrong password or login</FormHelperText> }
           </FormControl>
           <div>
             <Button

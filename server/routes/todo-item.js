@@ -6,7 +6,4 @@ Router.route('/:todoId/todo-item')
   .get(TodoItem.getTodoItem)
   .post(TodoItem.createTodoItem);
 
-Router.all('*',function (req,res) {
-  console.log('hhhh')
-})
 module.exports = Router;

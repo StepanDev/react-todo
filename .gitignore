@@ -4,3 +4,4 @@ client/node_modules
 config
 server/config
 server/build
+client/build

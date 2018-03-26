@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      complete: {
+      completed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
       },

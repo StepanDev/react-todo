@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles, IconButton } from 'material-ui';
-import { Delete, Edit, Done } from 'material-ui-icons';
+import { Delete, Edit, Done, AccessTime } from 'material-ui-icons';
 import axios from 'axios';
 
 import Link from '../Link';
@@ -27,6 +27,7 @@ const styles = theme => ({
   },
   itemsWrapper: {
     display: 'flex',
+    justifyContent: 'baseline',
   },
   editBtn: {
     right: 0,
@@ -40,6 +41,9 @@ const styles = theme => ({
   },
   paperBlock: {
     position: 'relative',
+  },
+  itemList: {
+    marginRight: 8,
   },
 });
 
@@ -59,7 +63,6 @@ class Todo extends Component {
         },
       })
       .then((r) => {
-        console.log(r);
         getTodos();
       })
       .catch(e => {
@@ -89,15 +92,18 @@ class Todo extends Component {
                 <Delete/>
               </IconButton>
             </div>
-            <div className={ classes }>
+            <div className={ classes.itemsWrapper }>
               <ul>
                 { todo.todoItems.map((value) =>
-                  <li key={ value.id }>
-                    { value.content }
-                    <span>
-                    { value.completed ? <Done/> : <span>Undone</span> }
-                    </span>
-                  </li>,
+                  <div key={ value.id } className={ classes.itemsWrapper }>
+                    <li className={ classes.itemList } key={ value.id }>
+                      { value.content }
+
+                    </li>
+                    <span key={ value.id }>
+                      { value.completed ? <Done/> : <AccessTime/> }
+                  </span>
+                  </div>,
                 ) }
               </ul>
             </div>
