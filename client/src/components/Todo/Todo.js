@@ -95,12 +95,12 @@ class Todo extends Component {
             <div className={ classes.itemsWrapper }>
               <ul>
                 { todo.todoItems.map((value) =>
-                  <div key={ value.id } className={ classes.itemsWrapper }>
+                  <div key={ 'itemsWrapper' + value.id } className={ classes.itemsWrapper }>
                     <li className={ classes.itemList } key={ value.id }>
                       { value.content }
 
                     </li>
-                    <span key={ value.id }>
+                    <span key={ 'completed' + value.id }>
                       { value.completed ? <Done/> : <AccessTime/> }
                   </span>
                   </div>,

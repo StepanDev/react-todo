@@ -68,7 +68,7 @@ class TodoList extends Component {
           { this.state.pending && <CircularProgressWrapper/> }
         </div>
         { todos.map((value) =>
-          <Todo todo={ value } key={ value.id } getTodos={ this.getTodos }/>,
+          <Todo todo={ value } key={ 'todo' + value.id } getTodos={ this.getTodos }/>,
         ) }
         <Link to='/todo/create'>
           <Button

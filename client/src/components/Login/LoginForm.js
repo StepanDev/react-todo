@@ -106,7 +106,7 @@ class LoginForm extends Component {
               onBlur={ this.isValidEmail }
             />
             { this.state.emailError &&
-            <FormHelperText id="name-error-text">Invalid login</FormHelperText> }
+            <FormHelperText id="invalid-login-error">Invalid login</FormHelperText> }
           </FormControl>
           <FormControl className={ classes.formControl } error={ this.state.pwdError }>
             <InputLabel htmlFor="password">Password</InputLabel>
@@ -128,9 +128,9 @@ class LoginForm extends Component {
               }
             />
             { this.state.pwdError &&
-            <FormHelperText id="name-error-text">Invalid password</FormHelperText> }
+            <FormHelperText id="invalid-password-error">Invalid password</FormHelperText> }
             { this.state.apiError &&
-            <FormHelperText id="name-error-text">Wrong password or login</FormHelperText> }
+            <FormHelperText id="invalid-login-or-password">Wrong password or login</FormHelperText> }
           </FormControl>
           <div>
             <Button

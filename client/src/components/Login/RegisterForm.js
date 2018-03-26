@@ -41,6 +41,7 @@ class LoginForm extends Component {
       login: '',
       name: '',
       password: '',
+      apiError: false,
     };
   }
 
@@ -84,10 +85,16 @@ class LoginForm extends Component {
       .then(res => {
         const user = res.data;
         onLogginned(user);
+        this.setState({
+          apiError: false,
+        })
         history.push('/');
       })
       .catch(e => {
         console.error(e);
+        this.setState({
+          apiError: true,
+        })
       });
   };
 
@@ -139,6 +146,8 @@ class LoginForm extends Component {
             />
             { this.state.pwdError &&
             <FormHelperText id="name-error-text">Invalid password</FormHelperText> }
+            { this.state.apiError &&
+            <FormHelperText id="name-error-text">An error occurred</FormHelperText> }
           </FormControl>
           <br/>
           <Button

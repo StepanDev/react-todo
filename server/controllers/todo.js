@@ -2,6 +2,7 @@
 const Todo = require('../models').Todo;
 const TodoItem = require('../models').TodoItem;
 const HttpStatus = require('http-status-codes');
+const _ = require('lodash');
 
 module.exports = {
   createTodo,
@@ -88,7 +89,7 @@ async function updateTodo(req, res) {
         .end();
     }
 
-    const r = await todo.update({
+    await todo.update({
       title: req.body.title,
       deadline: req.body.deadline,
     });
@@ -96,10 +97,22 @@ async function updateTodo(req, res) {
     const todoItems = req.body.todoItems;
 
     for (let i = 0; i < todoItems.length; i++) {
-
+      if (todoItems[i].id) {
+        const todoItem = await TodoItem.findById(todoItems[i].id);
+        await todoItem.update({
+          completed: todoItems[i].completed,
+          content: todoItems[i].content,
+        });
+      } else {
+        await TodoItem.create({
+          completed: todoItems[i].completed,
+          content: todoItems[i].content,
+          todoId: todo.id,
+        });
+      }
     }
 
-    res.send({});
+    res.end();
   } catch (e) {
     console.error(e);
     return res.status(HttpStatus.BAD_REQUEST)
