@@ -218,6 +218,7 @@ class EditTodo extends Component {
                 variant="fab"
                 color="primary"
                 aria-label="add"
+                id='add-todo-item-btn'
                 className={ classes.button }
                 onClick={ this.addTodoItem }
               >
@@ -230,10 +231,16 @@ class EditTodo extends Component {
                 variant="raised"
                 size="small"
                 onClick={ this.saveTodo }
+                id="save-button"
               >
                 Save
               </Button>
-              <Button className={ classes.button } variant="raised" size="small">
+              <Button
+                className={ classes.button }
+                variant="raised"
+                size="small"
+                id="cancel-button"
+              >
                 Cancel
               </Button>
             </div>

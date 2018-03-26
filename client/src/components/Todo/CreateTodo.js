@@ -70,9 +70,6 @@ class CreateTodo extends Component {
     };
   }
 
-  // componentDidMount() {
-  //
-  // }
 
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -181,11 +178,17 @@ class CreateTodo extends Component {
                 className={ classes.button }
                 variant="raised"
                 size="small"
+                id="save-button"
                 onClick={ this.saveTodo }
               >
                 Save
               </Button>
-              <Button className={ classes.button } variant="raised" size="small">
+              <Button
+                className={ classes.button }
+                variant="raised"
+                size="small"
+                id="cancel-button"
+              >
                 Cancel
               </Button>
             </div>
