@@ -74,7 +74,7 @@ const TodoItems = function (props) {
       <FormControl className={ classes.formControl }>
         <InputLabel htmlFor="login">Title</InputLabel>
         <Input
-          id="adornment-todo-title"
+          id={ 'adornment-todo-item-title-' + index }
           type='text'
           value={ value.content }
           onChange={ handleItemChange }
