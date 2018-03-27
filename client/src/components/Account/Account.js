@@ -40,6 +40,7 @@ class Account extends Component {
 
   constructor(props) {
     super(props);
+    this.cancelEdit = this.cancelEdit.bind(this);
     this.state = {
       editing: true,
       name: props.user.name,
@@ -54,6 +55,16 @@ class Account extends Component {
   handleEdit = () => {
     const { editing } = this.state;
     this.setState({ editing: !editing });
+  };
+
+  cancelEdit = () => {
+    const props = this.props;
+    console.log('cancelling', props.user);
+    this.setState({
+      editing: true,
+      name: props.user.name,
+      email: props.user.email,
+    });
   };
 
   updateUser = () => {
@@ -72,9 +83,7 @@ class Account extends Component {
         this.setState({
           error: true,
         });
-      })
-
-    // this.setState({ editing: !editing });
+      });
   };
 
   render() {
@@ -94,7 +103,7 @@ class Account extends Component {
           </IconButton>
           <div>
             <FormControl className={ classes.formControl }>
-              <InputLabel htmlFor="login">Title</InputLabel>
+              <InputLabel htmlFor="name">name</InputLabel>
               <Input
                 id="adornment-todo-name"
                 type='text'
@@ -107,7 +116,7 @@ class Account extends Component {
               />
             </FormControl>
             <FormControl className={ classes.formControl }>
-              <InputLabel htmlFor="login">Title</InputLabel>
+              <InputLabel htmlFor="login">login</InputLabel>
               <Input
                 id="adornment-todo-email"
                 type='text'
@@ -125,10 +134,16 @@ class Account extends Component {
                 color="primary"
                 className={ classes.button }
                 onClick={ this.updateUser }
+                id='save-btn'
               >
                 Save
               </Button>
-              <Button variant="raised" className={ classes.button }>
+              <Button
+                variant="raised"
+                className={ classes.button }
+                onClick={ this.cancelEdit }
+                id='cancel-btn'
+              >
                 Cancel
               </Button>
             </div>
