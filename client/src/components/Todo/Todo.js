@@ -80,15 +80,23 @@ class Todo extends Component {
             <h1>{ todo.title }</h1>
             <div className={ classes.editBtn }>
               <Link to={ `todo/${todo.id}/edit` }>
-                <IconButton className={ classes.button } aria-label="Edit"
-                            onClick={ this.handleEdit }>
+                <IconButton
+                  className={ classes.button }
+                  aria-label="Edit"
+                  onClick={ this.handleEdit }
+                  id='edit-btn'
+                >
                   <Edit/>
                 </IconButton>
               </Link>
             </div>
             <div className={ classes.deleteBtn }>
-              <IconButton className={ classes.button } aria-label="Delete"
-                          onClick={ this.deleteTodo }>
+              <IconButton
+                className={ classes.button }
+                aria-label="Delete"
+                onClick={ this.deleteTodo }
+                id='delete-btn'
+              >
                 <Delete/>
               </IconButton>
             </div>

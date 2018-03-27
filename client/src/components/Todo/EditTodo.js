@@ -84,6 +84,7 @@ const TodoItems = function (props) {
         className={ classes.button }
         aria-label="Delete"
         onClick={ removeItem }
+        id='remove-item-btn'
       >
         <DeleteIcon/>
       </IconButton>

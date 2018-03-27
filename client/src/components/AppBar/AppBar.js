@@ -74,17 +74,6 @@ class CustomAppBar extends Component {
     return (
       <AppBar position="static">
         <Toolbar className={ classes.linkWrapper }>
-          { /*{ user && <div>*/ }
-          { /*<IconButton*/ }
-          { /*id='profile-icon'*/ }
-          { /*className={ classes.menuButton }*/ }
-          { /*color="inherit"*/ }
-          { /*aria-label="Menu"*/ }
-          { /*onClick={ this.handleBar }*/ }
-          { /*>*/ }
-          { /*<MenuIcon/>*/ }
-          { /*</IconButton>*/ }
-          { /*</div> }*/ }
           <div>
             <Link to='/'>
               <Typography variant="title" color="inherit" className={ classes.flex }>

@@ -155,6 +155,7 @@ class CreateTodo extends Component {
                   <IconButton
                     className={ classes.button }
                     aria-label="Delete"
+                    id='remove-item-btn'
                     onClick={ this.removeItem(index) }
                   >
                     <DeleteIcon/>

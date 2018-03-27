@@ -84,7 +84,12 @@ class Account extends Component {
       <div className={ classes.flexDiv }>
         <Paper className={ classes.root } elevation={ 4 }
                style={ { maxWidth: 450, minWidth: 300 } }>
-          <IconButton className={ classes.button } aria-label="Edit" onClick={ this.handleEdit }>
+          <IconButton
+            className={ classes.button }
+            aria-label="Edit"
+            onClick={ this.handleEdit }
+            id='edit-profile-btn'
+          >
             <Edit/>
           </IconButton>
           <div>
